@@ -16,36 +16,33 @@ import java.util.Set;
  */
 public class Solution2 {
     public int lengthOfLongestSubstring(String s) {
-        if(s.length()==1&&s.length()==0)
-            return s.length();
-        else
-        {
-            Set<Character> set=new HashSet<Character>();
 
-            int max=1;
-            int left=0;
-            int right=0;
-            while (right<s.length()){
+        if(s==" ")
+            return 0;
+        else {
+            Set<Character> set = new HashSet<Character>();
+
+            int max = 0;
+            int left = 0;
+            int right = 0;
+            while (right < s.length()) {
                 if (!set.contains(s.charAt(right))) {
-                    set.add(s.charAt(right));
-                    max = Math.max(max, right - left + 1);
-                    right++;
+                    set.add(s.charAt(right++));
+                    max = Integer.max(max, right - left);
                 } else {
-                    set.remove(s.charAt(left));
-                    left++;
+                    set.remove(s.charAt(left++));
                 }
 
-
             }
-            return max ;
-        }
+            return max;
 
+        }
 
     }
 
     @Test
-    public void test(){
-        String s=new String("abbaa" );
+    public void test() {
+        String s = new String("abbaa");
         System.out.println(lengthOfLongestSubstring(s));
     }
 
