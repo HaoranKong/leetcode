@@ -12,7 +12,7 @@ import org.junit.Test;
  * @Create 2024/4/14 21:16
  * @Version 1.0
  */
-class Solution {
+public class Solution {
     public void moveZeroes(int[] nums) {
 
         int left=0;
@@ -22,7 +22,10 @@ class Solution {
             if(num!=0){
                 swap(nums,left,right);
                 left++;
+                if(right==nums.length)
+                  return;
                 right++;
+
             }
             else {
                 right++;
@@ -37,7 +40,7 @@ class Solution {
     private void swap(int[] nums, int left, int right) {
         int temp;
         temp=nums[left];
-        nums[left]=right;
+        nums[left]=nums[right];
         nums[right]=temp;
     }
 
