@@ -1,7 +1,11 @@
 package 合并区间;
 
+import org.junit.Test;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * ClassName: Solution
@@ -23,23 +27,38 @@ public class Solution {
                 return interval1[0] - interval2[0];
             }
         });
-
-        int begin=1;
+        List<int[]>res = new ArrayList<int[]>();
+        int begin=0;
         int end=1;
 
-
-        int[][] ints = new int[intervals.length][];
-        ints[0][begin]=intervals[0][0];
-        ints[0][end]=intervals[0][1];
-
-        for(int i = 1; i < intervals.length; i++) {
-            if((intervals[i][end]<=ints[i-1][end])||(intervals[i][begin]>=ints[i-1][begin]))
+        res.add(intervals[0]);
+        for(int i=1;i<intervals.length;i++) {
+            if(intervals[i][begin]<=res.get(res.size()-1)[end])
             {
-                ints[i][begin]=Math.min(ints[i-1][begin],intervals[i][begin]);
-                ints[i][end]=Math.max(ints[i-1][end],intervals[i][end]);
+                int[] newelement = new int[2];
+                newelement[0]=res.get(res.size()-1)[begin];
+                newelement[1]=Math.max(intervals[i][end],res.get(res.size()-1)[end]);
+                res.set(res.size() - 1,newelement);
+            }
+            else {
+                res.add(intervals[i]);
             }
         }
+        return res.toArray(new int [res.size()][]);
 
-        return new int[intervals.length][];
+    }
+
+    /**
+     *
+     * @author khr
+     * @date 2024-04-20
+     */
+    @Test
+    public void test(){
+            int[][] ints={{1,4},{0,2},{3,5}};
+        for (int[] ints1 : merge(ints)) {
+            System.out.println(Arrays.toString(ints1) );
+        }
+
     }
 }
